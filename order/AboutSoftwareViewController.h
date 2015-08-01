@@ -1,0 +1,14 @@
+//
+//  AboutSoftwareViewController.h
+//  order
+//
+//  Created by 王王 on 15/7/29.
+//  Copyright (c) 2015年 王晓伟. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface AboutSoftwareViewController : UIViewController
+
+@property(nonatomic,weak) IBOutlet UIWebView *webview;
+@end

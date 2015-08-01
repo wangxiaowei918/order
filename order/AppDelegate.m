@@ -7,6 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "Userstore.h"
+#import "ItemTableViewController.h"
+#import "UserPageTableViewController.h"
+#import "LoginViewController.h"
+#import "RegisterViewController.h"
+#import "MyTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -15,7 +21,41 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.tvc=[[UITabBarController alloc]init];
+    ItemTableViewController *itvc=[[ItemTableViewController alloc]init];
+    UINavigationController *navMain=[[UINavigationController alloc]initWithRootViewController:itvc];
+    
+    //UINavigationController *navMain=[[UINavigationController alloc]initWithRootViewController:[[ItemTableViewController alloc]init]];
+    
+    
+    navMain.tabBarItem.title=@"主页";
+    navMain.tabBarItem.image=[UIImage imageNamed:@"home"];
+    MyTableViewController *mtvc=[[MyTableViewController alloc]init];
+    UINavigationController *navUserpage=[[UINavigationController alloc]initWithRootViewController:mtvc];
+    //UINavigationController *navUserpage=[[UINavigationController alloc]initWithRootViewController:[[MyTableViewController alloc]init]];
+    
+    navUserpage.tabBarItem.title=@"我的";
+    navUserpage.tabBarItem.image=[UIImage imageNamed:@"me"];
+    
+    self.tvc.viewControllers=@[navMain,navUserpage];
+    
+    self.loginVC=[[LoginViewController alloc]init];
+    
+    if([Userstore shareduserstore].currentUser)
+    {
+        self.window.rootViewController=self.tvc;
+    }
+    else
+    {
+        self.window.rootViewController=self.loginVC;
+    }
+    
+
+    self.window.backgroundColor=[UIColor clearColor];
+    [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }
